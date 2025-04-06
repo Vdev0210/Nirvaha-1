@@ -44,7 +44,7 @@ const Home = () => {
               Ancient Wisdom for Modern Life
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <Link to="/meditation">
+              <Link to="/auth">
                 <motion.button
                   className="px-8 py-3 bg-primary text-dark-300 rounded-full font-medium text-lg hover:bg-primary/90 transition-all w-full md:w-auto"
                   whileHover={{ scale: 1.05 }}

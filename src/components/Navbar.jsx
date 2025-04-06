@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
+import { useAuth } from '../contexts/AuthContext'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const { currentUser } = useAuth()
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -77,14 +79,16 @@ const Navbar = () => {
                 />
               </Link>
             ))}
-            <Link 
-              to="/profile" 
-              className={`p-2 rounded-full transition-colors ${
-                scrolled ? 'hover:bg-[#00D5B0]/10' : 'hover:bg-[#00D5B0]/10'
-              }`}
-            >
-              <UserCircleIcon className={`h-7 w-7 ${scrolled ? 'text-white' : 'text-white'} hover:text-[#00D5B0]`} />
-            </Link>
+            {currentUser && (
+              <Link 
+                to="/profile" 
+                className={`p-2 rounded-full transition-colors ${
+                  scrolled ? 'hover:bg-[#00D5B0]/10' : 'hover:bg-[#00D5B0]/10'
+                }`}
+              >
+                <UserCircleIcon className={`h-7 w-7 ${scrolled ? 'text-white' : 'text-white'} hover:text-[#00D5B0]`} />
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -125,13 +129,15 @@ const Navbar = () => {
                     {link.name}
                   </Link>
                 ))}
-                <Link
-                  to="/profile"
-                  className="block px-4 py-3 rounded-lg text-white text-lg hover:bg-[#00D5B0]/10 hover:text-[#00D5B0]"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Profile
-                </Link>
+                {currentUser && (
+                  <Link
+                    to="/profile"
+                    className="block px-4 py-3 rounded-lg text-white text-lg hover:bg-[#00D5B0]/10 hover:text-[#00D5B0]"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Profile
+                  </Link>
+                )}
               </div>
             </motion.div>
           )}

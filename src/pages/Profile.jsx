@@ -1,9 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const Profile = () => {
+  const { currentUser, logout } = useAuth()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('progress')
   
+  // Protect the route
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/auth')
+    }
+  }, [currentUser, navigate])
+
   const userStats = {
     meditationTime: '45h 30m',
     sessionsCompleted: 128,
@@ -56,10 +68,24 @@ const Profile = () => {
     }
   ]
 
+  const handleLogout = async () => {
+    try {
+      await logout()
+      toast.success('Logged out successfully')
+      navigate('/')
+    } catch (error) {
+      console.error('Error logging out:', error)
+      toast.error('Failed to logout')
+    }
+  }
+
+  // If no user, don't render anything
+  if (!currentUser) return null
+
   return (
     <div className="min-h-screen bg-dark-300 pt-24 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Profile Header */}
+        {/* Profile Header with Logout */}
         <motion.div 
           className="bg-dark-100 rounded-3xl p-8 mb-8 relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
@@ -71,14 +97,44 @@ const Profile = () => {
             <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-primary blur-3xl" />
           </div>
           
-          <div className="relative z-10 flex items-center gap-8">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-r from-primary to-primary/50 flex items-center justify-center text-4xl">
-              🧘‍♀️
+          <div className="relative z-10 flex justify-between items-start">
+            <div className="flex items-center gap-8">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-r from-primary to-primary/50 flex items-center justify-center text-4xl">
+                {currentUser.email?.[0].toUpperCase() || '🧘‍♀️'}
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  {currentUser.user_metadata?.username || 'User'}
+                </h1>
+                <p className="text-gray-400">
+                  {currentUser.email}
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">Sarah Peace</h1>
-              <p className="text-gray-400">Spiritual Seeker • Member since January 2024</p>
-            </div>
+            
+            <motion.button
+              onClick={handleLogout}
+              className="px-6 py-3 bg-gradient-to-r from-primary/10 to-primary/5 text-primary border border-primary/20 rounded-xl
+                       hover:from-primary/20 hover:to-primary/10 transition-all duration-300 flex items-center gap-3 group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span className="font-medium">Sign Out</span>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-5 w-5 transform transition-transform group-hover:translate-x-1" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" 
+                />
+              </svg>
+            </motion.button>
           </div>
         </motion.div>
 

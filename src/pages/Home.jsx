@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+
 
 const Home = () => {
   return (
@@ -111,6 +111,12 @@ const Home = () => {
                 title: "Divine Chat",
                 description: "Connect with spiritual wisdom through AI",
                 path: "/divine-chat"
+              },
+              {
+                icon: "🩺",
+                title: "Personalized Therapy",
+                description: "Personalized therapy session with doctors",
+                path: "/personalized-therapy"
               }
             ].map((service, index) => (
               <motion.div
@@ -141,6 +147,7 @@ const Home = () => {
                 </Link>
               </motion.div>
             ))}
+
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import SoundHealing from './pages/SoundHealing'
 import Profile from './pages/Profile'
 import Auth from './components/Auth'
 import ResetPassword from './pages/ResetPassword'
+import PersonalizedTherapy from './pages/PersonalizedTherapy'
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -89,6 +90,14 @@ const App = () => {
                     <Profile />
                   </ProtectedRoute>
                 } 
+              />
+              <Route
+                path="/personalized-therapy"
+                element={
+                  <ProtectedRoute>
+                    <PersonalizedTherapy />
+                  </ProtectedRoute>
+                }
               />
             </Routes>
           </main>

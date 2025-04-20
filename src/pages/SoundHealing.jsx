@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const SoundHealing = () => {
   const [currentTrack, setCurrentTrack] = useState(null)
@@ -15,6 +16,18 @@ const SoundHealing = () => {
     beta: useRef(null),
     gamma: useRef(null),
     delta: useRef(null)
+  }
+  const navigate = useNavigate()
+
+  // eslint-disable-next-line no-unused-vars
+  const handleBackClick = () => {
+    navigate('/#our-services')
+    setTimeout(() => {
+      const element = document.getElementById('our-services')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 100)
   }
 
   const frequencies = [
@@ -151,6 +164,16 @@ const SoundHealing = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >            
+        </svg>                
+        
         {/* Hero Section */}
         <motion.div 
           className="text-center mb-16"
@@ -278,4 +301,4 @@ const SoundHealing = () => {
   )
 }
 
-export default SoundHealing 
+export default SoundHealing

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { motion } from 'framer-motion'
 
 const Home = () => {
   return (
@@ -68,7 +68,7 @@ const Home = () => {
       </div>
 
       {/* Services Section */}
-      <div className="py-24 px-4 relative overflow-hidden">
+      <div id="our-services" className="py-24 px-4 relative overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-dark-200 via-dark-300 to-dark-100" />
@@ -117,6 +117,12 @@ const Home = () => {
                 title: "Personalized Therapy",
                 description: "Personalized therapy session with doctors",
                 path: "/personalized-therapy"
+              },
+              {
+                icon: "📰",
+                title: "Blogs and Videos",
+                description: "Explore our latest spiritual articles and curated videos",
+                path: "/media"
               }
             ].map((service, index) => (
               <motion.div

@@ -21,7 +21,7 @@ const Footer = () => {
     features: [
       { name: 'Meditation', path: '/meditation' },
       { name: 'Sound Healing', path: '/sound-healing' },
-      { name: 'Divine Chat', path: '/divine-chat' },
+      { name: 'Zen Chat', path: '/divine-chat' },
       { name: 'Profile', path: '/profile' }
     ],
     social: [

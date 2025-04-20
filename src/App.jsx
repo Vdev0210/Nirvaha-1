@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
+import ScrollToTop from './components/ScrollToTop'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import DivineChat from './pages/DivineChat'
@@ -12,7 +13,12 @@ import SoundHealing from './pages/SoundHealing'
 import Profile from './pages/Profile'
 import Auth from './components/Auth'
 import ResetPassword from './pages/ResetPassword'
+
 import PersonalizedTherapy from './pages/PersonalizedTherapy'
+import Media from './pages/Media'
+import Blogs from './pages/Blogs'
+import Videos from './pages/Videos'
+
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -40,6 +46,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
@@ -96,6 +103,14 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <PersonalizedTherapy />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/media"
+                element={
+                  <ProtectedRoute>
+                    <Media />
                   </ProtectedRoute>
                 }
               />

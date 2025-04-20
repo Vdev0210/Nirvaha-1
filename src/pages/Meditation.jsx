@@ -1,8 +1,20 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const Meditation = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const navigate = useNavigate()
+
+  const handleBackClick = () => {
+    navigate('/#our-services')
+    setTimeout(() => {
+      const element = document.getElementById('our-services')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 100)
+  }
 
   const categories = [
     { id: 'all', name: 'All Meditations' },
@@ -77,6 +89,18 @@ const Meditation = () => {
   return (
     <div className="min-h-screen bg-dark-300 pt-24 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+        </svg>
+          
+        
+
         {/* Hero Section */}
         <motion.div 
           className="text-center mb-16"
@@ -202,4 +226,4 @@ const Meditation = () => {
   )
 }
 
-export default Meditation 
+export default Meditation
